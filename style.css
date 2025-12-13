@@ -1,4 +1,6 @@
-/* Sayfanın genel ayarları */
+/* Google Fonts'tan Modern Bir Font (Poppins) */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap');
+
 * {
     margin: 0;
     padding: 0;
@@ -6,49 +8,90 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background-color: #f4f4f9; /* Açık gri arka plan */
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); /* Mor Geçişli Arka Plan */
     color: #333;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-/* Menü Tasarımı (Flexbox Kullanımı - Zorunlu) */
+/* Navigasyon (Menü) */
 nav {
-    background-color: #2c3e50; /* Koyu lacivert menü */
-    padding: 15px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1); /* Buzlu cam efekti */
+    backdrop-filter: blur(10px);
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
 }
 
 nav ul {
-    list-style-type: none; /* Madde işaretlerini kaldır */
-    display: flex; /* Flexbox ile yan yana diziyoruz */
-    justify-content: center; /* Ortaya hizala */
-    gap: 20px; /* Linkler arası boşluk */
+    list-style-type: none;
+    display: flex;
+    justify-content: center;
+    gap: 30px;
 }
 
 nav ul li a {
     color: white;
-    text-decoration: none; /* Alt çizgiyi kaldır */
-    font-weight: bold;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
     padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
+    border-radius: 25px;
+    transition: all 0.3s ease;
 }
 
 nav ul li a:hover {
-    background-color: #e67e22; /* Üzerine gelince turuncu olsun */
+    background-color: white;
+    color: #764ba2;
+    transform: translateY(-2px);
 }
 
 /* Ana İçerik Kutusu */
 main {
+    width: 90%;
     max-width: 800px;
-    margin: 50px auto; /* Sayfanın ortasına getir */
-    padding: 40px;
+    margin-top: 50px;
+    padding: 50px;
     background-color: white;
-    border-radius: 10px; /* Köşeleri yuvarlat */
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1); /* Hafif gölge ekle */
+    border-radius: 20px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.2);
     text-align: center;
+    animation: fadeIn 1s ease-in-out;
 }
 
-h1 {
-    color: #2c3e50;
-    margin-bottom: 20px;
+/* Form ve Butonlar */
+input, textarea {
+    width: 100%;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-family: 'Poppins', sans-serif;
+}
+
+button {
+    background-color: #764ba2;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+    width: 100%;
+}
+
+button:hover {
+    background-color: #5a367f;
+}
+
+/* Animasyon */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
 }
