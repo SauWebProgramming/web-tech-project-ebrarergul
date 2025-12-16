@@ -1,112 +1,107 @@
-// Sayfa tamamen yüklendiğinde çalışacak kodlar
 document.addEventListener('DOMContentLoaded', () => {
 
-    // HTML'deki kutuları ve linkleri seçiyoruz
+    // Gerekli elemanları seçiyoruz
     const anaIcerik = document.getElementById('ana-icerik');
-    const linkHakkimda = document.getElementById('link-hakkimda');
-    const linkProjeler = document.getElementById('link-projeler');
-    const linkIletisim = document.getElementById('link-iletisim');
-
-    // Sitemizin içeriklerini burada saklıyoruz
-    const icerikler = {
-        hakkimda: `
-            <h1>Hakkımda</h1>
-            <p>Merhaba! Ben bir Web Geliştirme öğrencisiyim.</p>
-            <p>Bu siteyi JavaScript kullanarak, sayfa yenilenmeden çalışan bir SPA (Tek Sayfalı Uygulama) olarak tasarladım.</p>
-            <p>Teknolojiye ve yazılıma büyük ilgi duyuyorum. Hedefim modern web teknolojilerinde uzmanlaşmak.</p>
-        `,
-        projeler: `
-            <h1>Projelerim</h1>
-            <p>Şu ana kadar geliştirdiğim bazı projeler şunlardır:</p>
-            <ul style="list-style-type: none; padding: 0;">
-                <li style="margin-bottom: 15px; background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 5px solid #764ba2;">
-                    <strong>1. Kişisel Portfolyo Sitesi:</strong> <br>
-                    Şu an incelediğiniz proje. HTML, CSS ve Saf JavaScript (Vanilla JS) kullanılarak geliştirildi.
-                </li>
-                <li style="margin-bottom: 15px; background: #f9f9f9; padding: 15px; border-radius: 8px; border-left: 5px solid #667eea;">
-                    <strong>2. Eczane Stok Sistemi:</strong> <br>
-                    C# ve .NET kullanılarak geliştirilen masaüstü otomasyon projesi.
-                </li>
-            </ul>
-        `,
-        iletisim: `
-            <h1>İletişim</h1>
-            <p>Benimle iletişime geçmek için formu doldurabilirsiniz:</p>
-            <form id="iletisim-formu">
-                <label>Adınız:</label><br>
-                <input type="text" id="isim" placeholder="Adınızı giriniz..." required><br>
-                
-                <label>Mesajınız:</label><br>
-                <textarea id="mesaj" rows="4" placeholder="Mesajınızı buraya yazın..." required></textarea><br>
-                
-                <button type="submit">Gönder</button>
-            </form>
-            <p id="bilgi-mesaji"></p>
-        `
+    const hamburgerBtn = document.getElementById('hamburger-btn');
+    const menuListesi = document.getElementById('menu-listesi');
+    
+    // Linkleri tanımlıyoruz
+    const linkler = {
+        hakkimda: document.getElementById('link-hakkimda'),
+        projeler: document.getElementById('link-projeler'),
+        iletisim: document.getElementById('link-iletisim')
     };
 
-    // Fonksiyon: Tıklanan linke göre içeriği değiştirir
-    function sayfayiDegistir(sayfaIsmi) {
-        // 1. Ana kutunun içini yeni yazılarla doldur
-        anaIcerik.innerHTML = icerikler[sayfaIsmi];
-
-        // 2. Tarayıcının adres çubuğunu güncelle
-        window.location.hash = sayfaIsmi;
+    // --- HAMBURGER MENÜ MANTIĞI ---
+    // 1. Butona tıklayınca menüyü aç/kapat
+    if (hamburgerBtn) {
+        hamburgerBtn.addEventListener('click', () => {
+            menuListesi.classList.toggle('aktif');
+        });
     }
 
-    // --- Tıklama Olaylarını (Click Events) Dinliyoruz ---
-
-    linkHakkimda.addEventListener('click', (e) => {
-        e.preventDefault();
-        sayfayiDegistir('hakkimda');
+    // 2. Bir linke tıklayınca menüyü otomatik kapat (Mobilde ekranı kaplamasın diye)
+    Object.values(linkler).forEach(link => {
+        if(link) {
+            link.addEventListener('click', () => {
+                menuListesi.classList.remove('aktif');
+            });
+        }
     });
 
-    linkProjeler.addEventListener('click', (e) => {
-        e.preventDefault();
-        sayfayiDegistir('projeler');
-    });
+    // --- İÇERİKLER ---
+    const icerikler = {
+        hakkimda: `
+            <div class="hero-container">
+                <div class="hero-text">
+                    <h1>Merhaba, <br> Ben <span class="highlight">Ebrar Ergül</span></h1>
+                    <h3>Geleceğin Web Geliştiricisi</h3>
+                    <p>Modern teknolojilerle, kullanıcı dostu ve estetik web deneyimleri tasarlamayı seviyorum. Şu an Web Teknolojileri üzerine kendimi geliştiriyorum.</p>
+                    <div class="hero-buttons">
+                        <button onclick="document.getElementById('link-projeler').click()">Projelerimi Gör</button>
+                    </div>
+                </div>
+                <div class="hero-image">
+                    <img src="ben.jpeg" alt="Ebrar Ergül" onerror="this.src='https://via.placeholder.com/400x400?text=Fotoğraf+Yok'">
+                </div>
+            </div>`,
+            
+        projeler: `
+            <h1>Projelerim</h1>
+            <p>Şu ana kadar geliştirdiğim projeler:</p>
+            <div class="projects-grid">
+                <div class="project-card">
+                    <h3>🎨 Kişisel Portfolyo</h3>
+                    <p>HTML, CSS ve JavaScript ile geliştirdiğim SPA özellikli modern web sitesi.</p>
+                </div>
+                <div class="project-card">
+                    <h3>💊 Eczane Stok Sistemi</h3>
+                    <p>C# ile geliştirdiğim, stok takibi yapan masaüstü otomasyonu.</p>
+                </div>
+            </div>`,
 
-    linkIletisim.addEventListener('click', (e) => {
-        e.preventDefault();
-        sayfayiDegistir('iletisim');
-    });
+        iletisim: `
+            <h1>İletişim</h1>
+            <p>Projelerim hakkında konuşmak için formu doldurabilirsin:</p>
+            <form id="iletisim-formu">
+                <label>Adınız:</label>
+                <input type="text" id="isim" placeholder="Adınız..." required>
+                <label>Mesajınız:</label>
+                <textarea id="mesaj" rows="4" placeholder="Mesajınız..." required></textarea>
+                <button type="submit">Gönder</button>
+            </form>
+            <p id="bilgi-mesaji"></p>`
+    };
 
-    // --- İletişim Formu Kontrolü ---
-    // Form dinamik olarak eklendiği için ana kutuyu dinliyoruz
+    // --- SAYFA DEĞİŞTİRME ---
+    function sayfayiDegistir(sayfaIsmi) {
+        if (icerikler[sayfaIsmi]) {
+            anaIcerik.innerHTML = icerikler[sayfaIsmi];
+            window.location.hash = sayfaIsmi;
+        }
+    }
+
+    // Link tıklamalarını dinle
+    if(linkler.hakkimda) linkler.hakkimda.addEventListener('click', (e) => { e.preventDefault(); sayfayiDegistir('hakkimda'); });
+    if(linkler.projeler) linkler.projeler.addEventListener('click', (e) => { e.preventDefault(); sayfayiDegistir('projeler'); });
+    if(linkler.iletisim) linkler.iletisim.addEventListener('click', (e) => { e.preventDefault(); sayfayiDegistir('iletisim'); });
+
+    // Form Kontrolü
     anaIcerik.addEventListener('submit', (e) => {
         if(e.target && e.target.id === 'iletisim-formu') {
-            e.preventDefault(); // Sayfanın yenilenmesini durdur
-            
-            // Formdaki verileri al
+            e.preventDefault();
             const isim = document.getElementById('isim').value;
-            const mesaj = document.getElementById('mesaj').value;
+            if(isim.length < 3) { alert("İsim en az 3 harf olmalı!"); return; }
             
-            // Basit Doğrulama: İsim çok kısaysa uyarı ver
-            if(isim.length < 3) {
-                alert("Lütfen geçerli bir isim giriniz (En az 3 karakter).");
-                return;
-            }
-
-            // Başarı Mesajını Göster
-            const bilgiKutusu = document.getElementById('bilgi-mesaji');
-            bilgiKutusu.style.color = "#2ecc71"; // Yeşil renk
-            bilgiKutusu.style.marginTop = "15px";
-            bilgiKutusu.style.fontWeight = "bold";
-            bilgiKutusu.innerText = `Teşekkürler ${isim}, mesajınız başarıyla alındı!`;
-            
-            // Formu temizle
+            const bilgi = document.getElementById('bilgi-mesaji');
+            bilgi.style.color = "#2ecc71";
+            bilgi.innerText = `Teşekkürler ${isim}, mesajın iletildi!`;
             e.target.reset();
         }
     });
-    
-    // Sayfa ilk açıldığında varsayılan sayfayı yükle
-    if(!window.location.hash) {
-        sayfayiDegistir('hakkimda');
-    } else {
-        // Eğer linkte #iletisim yazıyorsa direkt orayı aç
-        const hash = window.location.hash.substring(1); // # işaretini at
-        if(icerikler[hash]) {
-            sayfayiDegistir(hash);
-        }
-    }
+
+    // Başlangıç Ayarı
+    if(!window.location.hash) { sayfayiDegistir('hakkimda'); } 
+    else { sayfayiDegistir(window.location.hash.substring(1)); }
+
 });
